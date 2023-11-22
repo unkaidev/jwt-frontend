@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Users.scss"
 import { fetchAllUser, deleteUser } from "../../services/userServices";
 import ReactPaginate from "react-paginate";
@@ -18,6 +18,7 @@ const Users = (props) => {
     //modal updata/create
     const [actionModalUser, setActionModalUser] = useState("CREATE");
     const [dataModalUser, setDataModalUser] = useState({});
+
 
 
     useEffect(() => {

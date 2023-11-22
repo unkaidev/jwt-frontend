@@ -3,28 +3,42 @@ import Nav from './components/Navigation/Nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import AppRoutes from './routes/AppRoutes';
+import { UserContext } from "./context/UserContext";
+import { Triangle } from 'react-loader-spinner'
+
+
 
 function App() {
-  const [account, setAccount] = useState({});
-  useEffect(() => {
-    let session = sessionStorage.getItem('account');
-    if (session) {
-      setAccount(JSON.parse(session));
-    }
-
-  }, []);
+  const { user } = useContext(UserContext);
 
   return (
     <>
       <Router>
-        <div className='app-header'>
-          <Nav />
-        </div>
-        <div className='app-container'>
-          <AppRoutes />
-        </div>
+        {user && user.isLoading ?
+          <div className='loading-container'>
+
+            <Triangle
+              height="100"
+              width="100"
+              color="#0866FF"
+              ariaLabel="triangle-loading"
+              visible={true}
+            />
+            <div>Loading data...</div>
+          </div>
+
+          :
+          <>
+            <div className='app-header'>
+              <Nav />
+            </div>
+            <div className='app-container'>
+              <AppRoutes />
+            </div>
+          </>
+        }
         <ToastContainer
           position="top-right"
           autoClose={5000}
