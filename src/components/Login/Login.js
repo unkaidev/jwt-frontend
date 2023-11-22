@@ -50,12 +50,12 @@ const Login = (props) => {
                 token,
                 account: { groupWithRoles, email, username }
             }
-            // sessionStorage.setItem('account', JSON.stringify(data))
+
+            localStorage.setItem('jwt', token)
 
             loginContext(data);
 
             history.push("/users");
-            // window.location.reload();
         }
         if (response && +response.EC !== 0) {
             //error
